@@ -112,49 +112,120 @@
             display: none;
         }
         
-        .nav-link {
-            position: relative;
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
         }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--secondary);
-            transition: width 0.3s ease;
+
+        .container, .max-w-6xl, .max-w-7xl {
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
         }
-        
-        .nav-link:hover::after {
-            width: 100%;
+
+        /* Fix specific overflow elements */
+        .hero h1 {
+            word-break: break-word;
+            line-height: 1.2;
         }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
+
+        @media (max-width: 640px) {
+            .text-4xl {
+                font-size: 1.875rem;
             }
-            50% {
-                transform: translateY(-15px);
+            
+            .text-5xl {
+                font-size: 2.25rem;
             }
-        }
-        
-        .float-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-    </style>
-</head>
+            
+            .px-4 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            /* Prevent button overflow */
+            .inline-flex {
+                max-width: 100%;
+                flex-wrap: wrap;
+            }
+            
+            /* Fix responsive text */
+            .responsive-college-title,
+            .responsive-school-title {
+                font-size: 1rem !important;
+                word-break: break-word;
+            }
+            * {
+                box-sizing: border-box;
+            }
+
+            /* === NAVIGATION FIXES === */
+            
+            /* Mobile Menu Button */
+            #mobile-menu-btn {
+                z-index: 60;
+                position: relative;
+                width: 40px;
+                height: 40px;
+            }
+            
+            .hamburger-lines {
+                width: 20px;
+                height: 16px;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            
+            .line {
+                width: 100%;
+                height: 2px;
+                background: #6366f1;
+                transition: all 0.3s ease;
+                transform-origin: center;
+            }
+            
+            /* Active state for hamburger */
+            #mobile-menu-btn.active .line1 {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            
+            #mobile-menu-btn.active .line2 {
+                opacity: 0;
+            }
+            
+            #mobile-menu-btn.active .line3 {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+            
+            /* Mobile Menu */
+            #mobile-menu.show {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+            
+            .mobile-link {
+                transition: all 0.3s ease;
+                border-left: 3px solid transparent;
+            }
+            
+            .mobile-link:hover {
+                border-left-color: #6366f1;
+                background-color: rgba(99, 102, 241, 0.05);
+            }
+        </style>
+    </head>
 <body>
 
 
     <!-- QUANTUM FLUX NAVIGATION -->
-<nav class="fixed w-full bg-white/95 backdrop-blur-sm shadow-xl z-50 border-b border-indigo-100/30">
+     <nav class="fixed w-full bg-white/95 backdrop-blur-sm shadow-xl z-50 border-b border-indigo-100/30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20 items-center">
             <!-- Logo with Magnetic Field Effect -->
             <div class="flex items-center group magnetic-wrapper" data-distance="0.3">
-                <span class="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent 
+                <span class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent 
                         transition-all duration-700 hover:scale-105 hover:drop-shadow-[0_5px_20px_rgba(99,102,241,0.4)] relative">
                     <span class="magnetic-orb"></span>
                     <span class="name-rotator">
@@ -165,7 +236,7 @@
                 </span>
             </div>
 
-            <!-- Plasma Navigation Links -->
+            <!-- Desktop Navigation Links -->
             <div class="hidden md:flex items-center space-x-6">
                 <a href="#home" class="plasma-nav-link" data-text="Home">
                     <span class="plasma-text">Home</span>
@@ -194,33 +265,44 @@
                 </a>
             </div>
 
-            <!-- Neutron Menu Button -->
+            <!-- Mobile Menu Button -->
             <div class="md:hidden flex items-center">
-                        <button id="neutron-menu-btn" class="relative w-12 h-12 flex items-center justify-center 
-                            bg-gradient-to-br from-indigo-100/50 to-purple-100/50 rounded-full shadow-lg
-                            hover:shadow-[0_0_20px_5px_rgba(124,58,237,0.3)] transition-all duration-500 neutron-btn">
-                            <div class="neutron-burger"></div>
-                            <span class="neutron-pulse"></span>
-                        </button>
+                <button id="mobile-menu-btn" class="relative w-10 h-10 flex items-center justify-center 
+                    bg-gradient-to-br from-indigo-100/50 to-purple-100/50 rounded-full shadow-lg
+                    hover:shadow-[0_0_20px_5px_rgba(124,58,237,0.3)] transition-all duration-500">
+                    <div class="hamburger-lines">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
                     </div>
-                </div>
+                </button>
             </div>
+        </div>
 
-            <!-- Singularity Mobile Menu -->
-            <div id="singularity-menu" class="hidden md:hidden bg-gradient-to-b from-white to-indigo-50 
-                overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.83,0,0.17,1)]">
-                <div class="px-8 py-6 space-y-8 transform transition-all duration-800 delay-100">
-                    <a href="#home" class="block singularity-link text-3xl font-medium text-gray-800 hover:text-indigo-600">
-                        <span class="singularity-char">H</span>
-                        <span class="singularity-char">o</span>
-                        <span class="singularity-char">m</span>
-                        <span class="singularity-char">e</span>
-                        <span class="singularity-highlight"></span>
-                    </a>
-                    <!-- Repeat for other links -->
-                </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden bg-gradient-to-b from-white to-indigo-50 
+            absolute top-full left-0 w-full shadow-lg transform transition-all duration-300 
+            origin-top scale-y-0 opacity-0">
+            <div class="px-4 py-6 space-y-4">
+                <a href="#home" class="block mobile-link text-lg font-medium text-gray-800 hover:text-indigo-600 py-2">
+                    Home
+                </a>
+                <a href="#about" class="block mobile-link text-lg font-medium text-gray-800 hover:text-indigo-600 py-2">
+                    About
+                </a>
+                <a href="#projects" class="block mobile-link text-lg font-medium text-gray-800 hover:text-indigo-600 py-2">
+                    Projects
+                </a>
+                <a href="#education" class="block mobile-link text-lg font-medium text-gray-800 hover:text-indigo-600 py-2">
+                    Education
+                </a>
+                <a href="#contact" class="block mobile-link text-lg font-medium text-gray-800 hover:text-indigo-600 py-2">
+                    Contact
+                </a>
             </div>
-        </nav>
+        </div>
+    </div>
+</nav>
 
         <style>
             /* === QUANTUM ANIMATIONS === */
@@ -249,197 +331,190 @@
                 100% { transform: scaleX(1); opacity: 0; }
             }
 
-            /* === PLASMA NAV LINKS === */
-            .plasma-nav-link {
-                position: relative;
-                padding: 0.6rem 1.2rem;
-                font-weight: 500;
-                color: #4b5563;
-                isolation: isolate;
-                transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-            }
-            .plasma-text {
-                position: relative;
-                z-index: 3;
-                transition: all 0.4s ease;
-            }
-            .plasma-trail {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background: linear-gradient(90deg, #8b5cf6, #ec4899);
-                transform: scaleX(0);
-                transform-origin: right;
-                transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-                z-index: 1;
-            }
-            .plasma-dots {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                z-index: 2;
-            }
+           /* === PLASMA NAV LINKS === */
+    .plasma-nav-link {
+        position: relative;
+        padding: 0.6rem 1.2rem;
+        font-weight: 500;
+        color: #4b5563;
+        isolation: isolate;
+        transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    }
+    
+    .plasma-text {
+        position: relative;
+        z-index: 3;
+        transition: all 0.4s ease;
+    }
+    
+    .plasma-trail {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, #8b5cf6, #ec4899);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 1;
+    }
+    
+    .plasma-dots {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 2;
+    }
 
-            /* Hover Effects */
-            .plasma-nav-link:hover {
-                color: #6366f1;
-            }
-            .plasma-nav-link:hover .plasma-text {
-                transform: translateY(-3px);
-                text-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
-            }
-            .plasma-nav-link:hover .plasma-trail {
-                transform: scaleX(1);
-                transform-origin: left;
-                animation: trail-expand 1s ease-out forwards;
-            }
+    /* Plasma Particles */
+    .plasma-particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #8b5cf6;
+        border-radius: 50%;
+        animation: particle-float 1.5s ease-out forwards;
+        pointer-events: none;
+    }
 
-            /* === NEUTRON BURGER === */
-            .neutron-burger {
-                width: 26px;
-                height: 2px;
-                background: #6366f1;
-                position: relative;
-                transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-            }
-            .neutron-burger::before,
-            .neutron-burger::after {
-                content: "";
-                position: absolute;
-                width: 26px;
-                height: 2px;
-                background: #6366f1;
-                transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-            }
-            .neutron-burger::before {
-                transform: translateY(-8px);
-            }
-            .neutron-burger::after {
-                transform: translateY(8px);
-            }
-            .neutron-pulse {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                background: rgba(139, 92, 246, 0.1);
-                animation: pulse-glow 3s infinite;
-                opacity: 0;
-            }
-            #neutron-menu-btn.active .neutron-burger {
-                background: transparent;
-            }
-            #neutron-menu-btn.active .neutron-burger::before {
-                transform: rotate(45deg);
-                background: #ec4899;
-            }
-            #neutron-menu-btn.active .neutron-burger::after {
-                transform: rotate(-45deg);
-                background: #ec4899;
-            }
-            #neutron-menu-btn.active .neutron-pulse {
-                opacity: 1;
-            }
-            #neutron-menu-btn.active {
-                box-shadow: 0 0 25px 8px rgba(236, 72, 153, 0.3);
-                animation: neutron-spin 1.5s ease-in-out infinite;
-            }
+    /* Hover Effects */
+    .plasma-nav-link:hover {
+        color: #6366f1;
+    }
+    
+    .plasma-nav-link:hover .plasma-text {
+        transform: translateY(-3px);
+        text-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+    }
+    
+    .plasma-nav-link:hover .plasma-trail {
+        transform: scaleX(1);
+        transform-origin: left;
+        animation: trail-expand 1s ease-out forwards;
+    }
 
-            /* === SINGULARITY MOBILE MENU === */
-            .singularity-char {
-                display: inline-block;
-                opacity: 0;
-                transform: translateY(20px);
-                transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            }
-            .singularity-highlight {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 0;
-                height: 2px;
-                background: linear-gradient(90deg, #8b5cf6, #ec4899);
-                transition: width 0.6s ease;
-            }
-            .singularity-link:hover .singularity-highlight {
-                width: 100%;
-            }
-            #singularity-menu.show {
-                max-height: 100vh;
-            }
-            #singularity-menu.show .singularity-char {
-                opacity: 1;
-                transform: translateY(0);
-                transition-delay: calc(var(--char-index) * 0.05s);
-            }
+    /* === MAGNETIC LOGO EFFECT === */
+    .magnetic-wrapper {
+        display: inline-block;
+        position: relative;
+    }
+    
+    .magnetic-orb {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+        transition: all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        pointer-events: none;
+    }
+    
+    .magnetic-wrapper:hover .magnetic-orb {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 
-            /* === MAGNETIC LOGO EFFECT === */
-            .magnetic-wrapper {
-                display: inline-block;
-                position: relative;
-            }
-            .magnetic-orb {
-                position: absolute;
-                width: 120px;
-                height: 120px;
-                background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-                border-radius: 50%;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0;
-                transition: all 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-                pointer-events: none;
-            }
-            .magnetic-wrapper:hover .magnetic-orb {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
+    /* 360 Degree Name Rotation */
+    .name-rotator {
+        display: inline-block;
+        perspective: 1000px;
+        color: #10b981;
+    }
+    
+    .name-rotator-inner {
+        display: inline-block;
+        transition: transform 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        transform-style: preserve-3d;
+    }
+    
+    .magnetic-wrapper:hover .name-rotator-inner {
+        transform: rotateY(360deg);
+    }
 
-        /* 360 Degree Name Rotation */
-            .name-rotator {
-                display: inline-block;
-                perspective: 1000px;
-            }
-            .name-rotator-inner {
-                display: inline-block;
-                transition: transform 0.6s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-                transform-style: preserve-3d;
-            }
-            .magnetic-wrapper:hover .name-rotator-inner {
-                transform: rotateY(360deg);
-            }
-
-            }
+    /* === RESPONSIVE DESIGN === */
+    @media (max-width: 768px) {
+        .name-rotator-inner {
+            font-size: 1.2rem;
+        }
+        
+        .magnetic-orb {
+            width: 80px;
+            height: 80px;
+        }
+        
+        /* Prevent horizontal scroll on mobile */
+        .max-w-7xl {
+            max-width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .name-rotator-inner {
+            font-size: 1rem;
+            color: #10b981;
+        }
+        
+        nav .h-20 {
+            height: 4rem;
+        }
+        
+        .px-4 {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+    }
         </style>
 
         <script>
-            // Neutron Menu Toggle
-            const neutronBtn = document.getElementById('neutron-menu-btn');
-            neutronBtn.addEventListener('click', function() {
+          document.addEventListener('DOMContentLoaded', function() {
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function() {
                 this.classList.toggle('active');
-                document.getElementById('singularity-menu').classList.toggle('show');
-                
-                if (this.classList.contains('active')) {
-                    document.querySelectorAll('.singularity-char').forEach((char, i) => {
-                        char.style.setProperty('--char-index', i);
-                    });
-                }
+                mobileMenu.classList.toggle('show');
             });
+        }
 
-            // Magnetic Logo Effect
-            const magneticLogo = document.querySelector('.magnetic-wrapper');
+        // Close mobile menu when clicking on links
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+
+        // Magnetic Logo Effect
+        const magneticLogo = document.querySelector('.magnetic-wrapper');
+        if (magneticLogo) {
             magneticLogo.addEventListener('mousemove', (e) => {
                 const rect = magneticLogo.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const distance = 0.3; // Strength of effect
+                const distance = 0.3;
                 
                 const angleX = (centerX - x) * distance;
                 const angleY = (centerY - y) * distance;
@@ -450,25 +525,54 @@
             magneticLogo.addEventListener('mouseleave', () => {
                 magneticLogo.style.transform = 'perspective(500px) rotateX(0) rotateY(0)';
             });
+        }
 
-            // Plasma Link Particles
-            document.querySelectorAll('.plasma-nav-link').forEach(link => {
-                link.addEventListener('mouseenter', () => {
+        // Plasma Link Particles
+        document.querySelectorAll('.plasma-nav-link').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                const plasmaDotsContainer = link.querySelector('.plasma-dots');
+                if (plasmaDotsContainer) {
                     // Create floating particles
-                    for (let i = 0; i < 8; i++) {
+                    for (let i = 0; i < 6; i++) {
                         const particle = document.createElement('span');
                         particle.className = 'plasma-particle';
-                        particle.style.setProperty('--x1', `${Math.random() * 100 - 50}px`);
-                        particle.style.setProperty('--y1', `${Math.random() * 100 - 50}px`);
-                        particle.style.setProperty('--x2', `${Math.random() * 100 - 50}px`);
-                        particle.style.setProperty('--y2', `${Math.random() * 100 - 150}px`);
+                        particle.style.setProperty('--x1', `${Math.random() * 50 - 25}px`);
+                        particle.style.setProperty('--y1', `${Math.random() * 50 - 25}px`);
+                        particle.style.setProperty('--x2', `${Math.random() * 50 - 25}px`);
+                        particle.style.setProperty('--y2', `${Math.random() * 100 - 100}px`);
                         particle.style.animationDelay = `${Math.random() * 0.5}s`;
-                        link.querySelector('.plasma-dots').appendChild(particle);
+                        plasmaDotsContainer.appendChild(particle);
                         
-                        setTimeout(() => particle.remove(), 1500);
+                        setTimeout(() => {
+                            if (particle.parentNode) {
+                                particle.remove();
+                            }
+                        }, 1500);
                     }
-                });
+                }
             });
+        });
+
+        // Smooth scrolling for all navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
         </script>
 
     
