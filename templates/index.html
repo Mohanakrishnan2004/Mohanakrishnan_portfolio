@@ -220,19 +220,17 @@
 
 
     <!-- QUANTUM FLUX NAVIGATION -->
-     <nav class="fixed w-full bg-white/95 backdrop-blur-sm shadow-xl z-50 border-b border-indigo-100/30">
+    <nav class="fixed w-full bg-white/95 backdrop-blur-sm shadow-xl z-50 border-b border-indigo-100/30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20 items-center">
             <!-- Logo with Magnetic Field Effect -->
             <div class="flex items-center group magnetic-wrapper" data-distance="0.3">
                 <span class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent 
-                        transition-all duration-700 hover:scale-105 hover:drop-shadow-[0_5px_20px_rgba(99,102,241,0.4)] relative">
+                        transition-all duration-700 hover:scale-105 h  over:drop-shadow-[0_5px_20px_rgba(99,102,241,0.4)] relative">
                     <span class="magnetic-orb"></span>
                     <span class="name-rotator">
                         <span class="name-rotator-inner">Mohanakrishnan Natarajan</span>
                     </span>
-                    <span class="absolute -inset-2 rounded-full bg-indigo-100/10 opacity-0 group-hover:opacity-100 
-                            group-hover:animate-[pulse_2s_ease-in-out_infinite] pointer-events-none"></span>
                 </span>
             </div>
 
@@ -265,11 +263,8 @@
                 </a>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden flex items-center">
-                <button id="mobile-menu-btn" class="relative w-10 h-10 flex items-center justify-center 
-                    bg-gradient-to-br from-indigo-100/50 to-purple-100/50 rounded-full shadow-lg
-                    hover:shadow-[0_0_20px_5px_rgba(124,58,237,0.3)] transition-all duration-500">
+            <div class="md:hidden ml-auto flex items-center" style="align-self: flex-start; margin-top: 0;">
+                <button id="mobile-menu-btn" class="relative w-10 h-10 flex items-center justify-center top-0">
                     <div class="hamburger-lines">
                         <span class="line line1"></span>
                         <span class="line line2"></span>
@@ -277,6 +272,7 @@
                     </div>
                 </button>
             </div>
+
         </div>
 
         <!-- Mobile Menu -->
@@ -473,6 +469,55 @@
             padding-right: 0.75rem;
         }
     }
+        </style>
+        
+        <style>
+        /* Ultra-small screens fixes (<=480px) */
+        @media (max-width: 480px) {
+            /* Guard rails: no horizontal scroll */
+            html, body { overflow-x: hidden; }
+
+            /* Compact navigation paddings */
+            .plasma-nav-link { padding: 0.4rem 0.6rem; }
+
+            /* Brand name: allow wrapping and avoid overflow */
+            .name-rotator-inner {
+                font-size: 0.95rem;
+                max-width: 70vw;
+                white-space: normal;
+                line-height: 1.2;
+            }
+
+            /* Hero section: stack and fit CTAs */
+            .hero .flex.space-x-4 { flex-wrap: wrap; gap: 0.75rem; }
+            .hero .inline-flex { width: 100%; }
+            .hero .inline-flex a {
+                display: block;
+                width: 100%;
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+                padding-top: 0.85rem !important;
+                padding-bottom: 0.85rem !important;
+            }
+
+            /* Hero image: scale down on very small screens */
+            #home .relative.w-64.h-64 { width: 12rem !important; height: 12rem !important; }
+
+            /* Images should never overflow */
+            img { max-width: 100%; height: auto; }
+
+            /* Timeline tweaks to reduce left gutter and marker sizes */
+            .timeline-item { padding-left: 2rem; }
+            .timeline-item::before { left: 0; width: 14px; height: 14px; }
+            .timeline-item::after { left: 7px; }
+
+            /* Long links/badges: wrap within container */
+            .responsive-link { white-space: normal !important; display: inline-flex; flex-wrap: wrap; max-width: 100%; }
+            .responsive-badges-container { gap: 6px; }
+
+            /* Slightly reduce generic horizontal padding */
+            .px-4 { padding-left: 0.75rem; padding-right: 0.75rem; }
+        }
         </style>
 
         <script>
